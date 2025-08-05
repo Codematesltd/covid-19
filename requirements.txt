@@ -1,0 +1,10 @@
+flask
+python-dotenv
+supabase
+werkzeug
+torch
+torchvision
+pillow
+opencv-python
+together
+#python==3.10.18

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viralytics • Prediction</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo -->
+        <div class="flex items-center space-x-2">
+          <svg class="h-8 w-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 3a1 1 0 011-1h6v2H4v12h12V9h2v8a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/>
+            <path d="M9 2h7a1 1 0 011 1v7h-2V4H9V2z"/>
+          </svg>
+          <a href="{{ url_for('home') }}" class="text-xl font-bold text-blue-600">Viralytics</a>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="{{ url_for('home') }}" class="text-gray-600 hover:text-blue-600">Home</a>
+          <a href="{{ url_for('predict') }}" class="text-blue-600 font-semibold">Prediction</a>
+          <a href="{{ url_for('about') }}" class="text-gray-600 hover:text-blue-600">About</a>
+          <a href="{{ url_for('contact') }}" class="text-gray-600 hover:text-blue-600">Contact</a>
+        </div>
+
+        <!-- User Info & Logout -->
+        {% if user %}
+        <div class="flex items-center space-x-4">
+          <span class="text-gray-600">Welcome, <span class="font-semibold">{{ user.name }}</span></span>
+          <a href="{{ url_for('logout') }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+            Logout
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <section class="container mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold text-center">AI Prediction Center</h1>
+    <p class="text-center text-gray-600 mt-2 mb-10">
+      Advanced COVID-19 detection using chest X-ray analysis
+    </p>
+
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Upload Card -->
+      <div class="flex-1 bg-white rounded-lg shadow p-8">
+        <h2 class="text-xl font-semibold mb-4">Upload X-ray Image</h2>
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+          <div id="upload-area" 
+               class="relative border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-blue-500 transition-colors">
+            <input type="file" 
+                   name="file" 
+                   id="file-input" 
+                   accept="image/*" 
+                   class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                   required>
+            
+            <!-- Image Preview Container - Initially Hidden -->
+            <div id="image-preview-container" class="hidden flex flex-col items-center">
+              <img id="image-preview" class="max-h-56 object-contain mb-3 rounded-lg shadow-sm" src="#" alt="X-ray preview">
+              <button 
+                id="remove-image" 
+                type="button" 
+                class="text-sm text-red-500 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 rounded px-2 py-1"
+                aria-label="Remove image"
+              >
+                Remove image
+              </button>
+            </div>
+            
+            <!-- Upload Prompt - Initially Shown -->
+            <div id="upload-prompt" class="text-center">
+              <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+              </svg>
+              <p class="mt-1 text-sm text-gray-600">Click or drag image here</p>
+            </div>
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+            Analyze Image
+          </button>
+        </form>
+      </div>
+
+      <!-- Results Card -->
+      <div class="flex-1 bg-white rounded-lg shadow p-8">
+        <h2 class="text-xl font-semibold mb-4">Analysis Results</h2>
+        {% if error %}
+          <div class="text-red-500">{{ error }}</div>
+        {% elif result %}
+          <div class="space-y-6">
+            <!-- Combined AI Decision -->
+            {% if result.llm_analysis %}
+            <div class="p-4 rounded-lg bg-blue-50 border border-blue-200">
+              <h3 class="font-bold text-lg text-blue-700 mb-2">Combined AI Decision</h3>
+              <div class="mb-2">
+                <span class="font-semibold text-gray-700">Final Diagnosis:</span>
+                <span class="ml-2 text-xl font-bold {% if result.llm_analysis.validation == 'CONFIRMED' and result.prediction == 'COVID' %}text-red-700{% elif result.llm_analysis.validation == 'CONFIRMED' and result.prediction == 'Normal' %}text-green-700{% else %}text-yellow-700{% endif %}">
+                  {% if result.llm_analysis.validation == 'CONFIRMED' %}
+                    {{ result.prediction }}
+                  {% else %}
+                    FLAGGED ({{ result.prediction }})
+                  {% endif %}
+                </span>
+              </div>
+              <div class="mb-2">
+                <span class="font-semibold text-gray-700">Confidence:</span>
+                <span class="ml-2 text-blue-700">{{ result.llm_analysis.confidence_assessment }}</span>
+              </div>
+              <div class="mb-2">
+                <span class="font-semibold text-gray-700">AI Validation:</span>
+                <span class="ml-2 {% if result.llm_analysis.validation == 'CONFIRMED' %}text-green-700{% else %}text-yellow-700{% endif %}">
+                  {{ result.llm_analysis.validation }}
+                </span>
+              </div>
+            </div>
+            {% endif %}
+            <!-- LLM Analysis Section -->
+            {% if result.llm_analysis %}
+            <div class="border-t pt-4">
+              <h3 class="text-lg font-semibold mb-3 text-blue-700">AI Medical Analysis with Image Review</h3>
+              
+              <!-- Validation Status -->
+              <div class="mb-4 p-3 rounded-lg {% if result.llm_analysis.validation == 'CONFIRMED' %}bg-green-50 border-green-200{% else %}bg-yellow-50 border-yellow-200{% endif %} border">
+                <h4 class="font-semibold {% if result.llm_analysis.validation == 'CONFIRMED' %}text-green-700{% else %}text-yellow-700{% endif %}">
+                  Validation: {{ result.llm_analysis.validation }}
+                </h4>
+                <p class="text-sm {% if result.llm_analysis.validation == 'CONFIRMED' %}text-green-600{% else %}text-yellow-600{% endif %}">
+                  Confidence Assessment: {{ result.llm_analysis.confidence_assessment }}
+                </p>
+              </div>
+              
+              <!-- Image Analysis -->
+              {% if result.llm_analysis.image_analysis %}
+              <div class="mb-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                <h4 class="font-semibold text-purple-700 mb-2">Radiological Image Analysis:</h4>
+                <p class="text-purple-600 text-sm leading-relaxed">{{ result.llm_analysis.image_analysis }}</p>
+              </div>
+              {% endif %}
+              
+              <!-- Combined Explanation -->
+              <div class="mb-4">
+                <h4 class="font-semibold text-gray-700 mb-2">Combined Analysis Explanation:</h4>
+                <p class="text-gray-600 leading-relaxed">{{ result.llm_analysis.explanation }}</p>
+              </div>
+              
+              <!-- Key Indicators -->
+              {% if result.llm_analysis.key_indicators %}
+              <div class="mb-4">
+                <h4 class="font-semibold text-gray-700 mb-2">Key Radiological Indicators:</h4>
+                <ul class="list-disc list-inside text-gray-600 space-y-1">
+                  {% for indicator in result.llm_analysis.key_indicators %}
+                  <li>{{ indicator }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+              
+              <!-- Medical Advice -->
+              <div class="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <h4 class="font-semibold text-blue-700 mb-2">Medical Advice:</h4>
+                <p class="text-blue-600 text-sm">{{ result.llm_analysis.medical_advice }}</p>
+              </div>
+              
+              <!-- Recommendations -->
+              {% if result.llm_analysis.recommendations %}
+              <div class="mb-4">
+                <h4 class="font-semibold text-gray-700 mb-2">Recommendations:</h4>
+                <ul class="list-disc list-inside text-gray-600 space-y-1">
+                  {% for recommendation in result.llm_analysis.recommendations %}
+                  <li>{{ recommendation }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+              
+              <!-- Disclaimer -->
+              <div class="mt-4 p-2 bg-gray-100 border-l-4 border-gray-400 rounded text-xs text-gray-500">
+                <strong>Disclaimer:</strong> This AI analysis is for educational purposes only and should not replace professional medical consultation. Always consult with qualified healthcare professionals for medical diagnosis and treatment.
+              </div>
+            </div>
+            {% endif %}
+            
+            <!-- Preprocessed Image -->
+            {% if result.preprocessed_image %}
+            <div class="border-t pt-4">
+              <h4 class="font-semibold mb-2">Processed X-ray Image:</h4>
+              <img src="{{ url_for('static', filename=result.preprocessed_image) }}" 
+                   alt="Preprocessed X-ray" 
+                   class="max-w-full h-auto rounded-lg shadow-sm">
+            </div>
+            {% endif %}
+            
+            <!-- Low Confidence Warning -->
+            {% if result.confidence|replace('%', '')|float < 60 %}
+            <div class="mt-4 p-2 rounded bg-yellow-100 text-yellow-800 text-sm font-semibold text-center">
+              Model is <span class="font-bold">not confident</span> in this prediction.<br>
+              Please consult a medical professional or try another image.
+            </div>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="text-gray-500 text-center">
+            Upload an image to see prediction results
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+  const uploadArea = document.getElementById('upload-area');
+  const fileInput = document.getElementById('file-input');
+  const uploadPrompt = document.getElementById('upload-prompt');
+  const previewContainer = document.getElementById('image-preview-container');
+  const imagePreview = document.getElementById('image-preview');
+  const removeImageBtn = document.getElementById('remove-image');
+
+  // Handle file input change
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        imagePreview.src = e.target.result;
+        uploadPrompt.classList.add('hidden');
+        previewContainer.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Remove image handler
+  const handleRemoveImage = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    fileInput.value = '';
+    imagePreview.src = '#';
+    previewContainer.classList.add('hidden');
+    uploadPrompt.classList.remove('hidden');
+  };
+
+  removeImageBtn.addEventListener('click', handleRemoveImage);
+  </script>
+</body>
+</html>

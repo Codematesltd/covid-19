@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Viralytics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-blue-50">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <!-- Logo Icon -->
+        <svg class="h-8 w-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M2 3a1 1 0 011-1h6v2H4v12h12V9h2v8a1 1 0 01-1 1H3a1 1 0 01-1-1V3z" />
+          <path d="M9 2h7a1 1 0 011 1v7h-2V4H9V2z" />
+        </svg>
+        <span class="text-xl font-bold text-blue-600">Viralytics</span>
+      </div>
+      <ul class="hidden md:flex space-x-8 text-gray-600">
+        <li><a href="{{ url_for('home') }}" class="hover:text-blue-600">Home</a></li>
+        <li><a href="{{ url_for('predict') }}" class="hover:text-blue-600">Prediction</a></li>
+        <li><a href="{{ url_for('about') }}" class="text-blue-600 font-semibold">About</a></li>
+        <li><a href="{{ url_for('contact') }}" class="hover:text-blue-600">Contact</a></li>
+      </ul>
+      <div class="hidden md:flex space-x-4">
+        <button class="px-4 py-2 border rounded hover:bg-blue-50"><a href="{{ url_for('sign_in') }}">Sign In</a></button>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"><a href="{{ url_for('sign_up') }}">Sign Up</a></button>
+      </div>
+      <button id="menu-btn" class="md:hidden text-gray-600">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Header -->
+    <h1 class="text-4xl font-bold text-center text-gray-800">About Viralytics</h1>
+    <p class="text-center text-gray-600 mt-2 mb-12">
+      Revolutionizing medical diagnosis with AI-powered viral detection
+    </p>
+
+    <!-- Mission & AI Detection -->
+    <div class="grid gap-8 md:grid-cols-2">
+      <!-- Our Mission -->
+      <div>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h2>
+        <p class="text-gray-600 mb-6">
+          Viralytics is dedicated to democratizing access to advanced medical diagnostics through artificial intelligence.
+          Our cutting-edge technology enables rapid, accurate COVID-19 detection from chest X-ray images, helping healthcare
+          professionals make informed decisions quickly.
+        </p>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <svg class="h-6 w-6 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414L8 15.414 4.293 11.707a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd" />
+            </svg>
+            <span class="ml-3 text-gray-700">95%+ accuracy in COVID-19 detection</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="h-6 w-6 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414L8 15.414 4.293 11.707a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd" />
+            </svg>
+            <span class="ml-3 text-gray-700">Results in under 30 seconds</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="h-6 w-6 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414L8 15.414 4.293 11.707a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd" />
+            </svg>
+            <span class="ml-3 text-gray-700">HIPAA compliant and secure</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- AI-Powered Detection Card -->
+      <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+        <div class="bg-blue-100 p-4 rounded-full mb-4">
+          <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4m0 4h.01M4.93 8.636l1.414 1.414M18.657 8.636l-1.414 1.414M12 2v2M12 20v2" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">AI-Powered Detection</h3>
+        <p class="text-gray-600">
+          Our deep learning models are trained on over 100,000 chest X-ray images from leading medical institutions worldwide.
+        </p>
+      </div>
+    </div>
+
+    <!-- Our Technology -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Our Technology</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+          <div class="bg-purple-50 p-3 rounded-full mb-4 inline-block">
+            <svg class="h-6 w-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 19V5h6v14m-6 0H5a2 2 0 01-2-2v-7a2 2 0 012-2h3" />
+            </svg>
+          </div>
+          <h4 class="font-semibold text-gray-800 mb-1">Deep Learning</h4>
+          <p class="text-gray-600 text-sm">Advanced neural networks trained on medical imaging data</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+          <div class="bg-blue-50 p-3 rounded-full mb-4 inline-block">
+            <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 1v22m9-9H3" />
+            </svg>
+          </div>
+          <h4 class="font-semibold text-gray-800 mb-1">Secure Processing</h4>
+          <p class="text-gray-600 text-sm">End-to-end encryption with no data storage</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+          <div class="bg-green-50 p-3 rounded-full mb-4 inline-block">
+            <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h4 class="font-semibold text-gray-800 mb-1">Real-time Results</h4>
+          <p class="text-gray-600 text-sm">Instant analysis with detailed confidence metrics</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

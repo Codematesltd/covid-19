@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viralytics | AI-Powered Viral Detection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <!-- Logo with text -->
+      <div class="flex items-center space-x-2">
+        <!-- Logo Icon -->
+        <svg class="h-8 w-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M2 3a1 1 0 011-1h6v2H4v12h12V9h2v8a1 1 0 01-1 1H3a1 1 0 01-1-1V3z" />
+          <path d="M9 2h7a1 1 0 011 1v7h-2V4H9V2z" />
+        </svg>
+        <span class="text-xl font-bold text-blue-600">Viralytics</span>
+      </div>
+      <div class="space-x-4">
+        <a href="{{ url_for('home') }}" class="text-blue-600 font-semibold">Home</a>
+        <a href="{{ url_for('predict') }}" class="text-gray-600 hover:text-blue-600">Prediction</a>
+        <a href="{{ url_for('about') }}" class="text-gray-600 hover:text-blue-600">About</a>
+        <a href="{{ url_for('contact') }}" class="text-gray-600 hover:text-blue-600">Contact</a>
+      </div>
+      <div class="space-x-3">
+        <a href="{{ url_for('sign_in') }}" class="text-blue-600 font-medium">Sign In</a>
+        <a href="{{ url_for('sign_up') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Sign Up</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="max-w-7xl mx-auto px-4 py-16">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">
+          AI-Powered <span class="text-blue-600">Viral Detection</span> Platform
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          Revolutionizing viral detection with advanced machine learning. Get accurate results in seconds.
+        </p>
+        <div class="space-x-4">
+          <a href="sign-up.html" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">Get Started</a>
+          <a href="#demo" class="text-blue-600 px-8 py-3 rounded-lg border border-blue-600 hover:bg-blue-50 transition">View Demo</a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="bg-blue-100 rounded-2xl p-8">
+          <img src="https://placehold.co/600x400" alt="AI Analysis Demo" class="rounded-lg shadow-lg">
+          <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-xl">
+            <div class="text-green-500 font-bold">99.8%</div>
+            <div class="text-sm text-gray-600">Detection Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Why Choose Viralytics?</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-white shadow-lg">
+          <div class="text-blue-600 text-4xl mb-4">🔬</div>
+          <h3 class="text-xl font-semibold mb-2">Advanced Analysis</h3>
+          <p class="text-gray-600">State-of-the-art deep learning models trained on extensive medical datasets.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-white shadow-lg">
+          <div class="text-blue-600 text-4xl mb-4">⚡</div>
+          <h3 class="text-xl font-semibold mb-2">Real-time Results</h3>
+          <p class="text-gray-600">Get accurate detection results in less than 30 seconds.</p>
+        </div>
+        <div class="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-white shadow-lg">
+          <div class="text-blue-600 text-4xl mb-4">🛡️</div>
+          <h3 class="text-xl font-semibold mb-2">HIPAA Compliant</h3>
+          <p class="text-gray-600">Enterprise-grade security with end-to-end encryption.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="max-w-7xl mx-auto px-4 py-16">
+    <div class="grid md:grid-cols-4 gap-8 text-center">
+      <div>
+        <div class="text-4xl font-bold text-blue-600">95%+</div>
+        <div class="text-gray-600 mt-2">Accuracy Rate</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold text-blue-600">30s</div>
+        <div class="text-gray-600 mt-2">Processing Time</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold text-blue-600">100k+</div>
+        <div class="text-gray-600 mt-2">Images Analyzed</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold text-blue-600">50+</div>
+        <div class="text-gray-600 mt-2">Institutions</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="bg-blue-600 text-white py-16">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold mb-4">Ready to get started?</h2>
+      <p class="mb-8">Join leading healthcare institutions using Viralytics</p>
+      <a href="{{url_for('sign_up')}}" class="bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition">Create Free Account</a>
+    </div>
+  </div>
+
+  <!-- Advanced AI Technology -->
+  <section class="py-12 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-center">
+    <h2 class="text-2xl font-bold mb-10">Advanced AI Technology</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Convolutional Neural Networks</h3>
+        <p>Multi-layer CNN architecture optimized for medical image analysis</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Training Dataset</h3>
+        <p>Over 1.2 million chest X-rays from 50+ medical institutions worldwide</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Validation & Testing</h3>
+        <p>Rigorously tested across diverse populations and imaging equipment</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clinical Evidence & Research -->
+  <section class="py-12 px-4 text-center">
+    <h2 class="text-2xl font-bold mb-10">Clinical Evidence & Research</h2>
+    <p class="text-gray-600 mb-10 max-w-3xl mx-auto">Peer-reviewed studies demonstrate superior performance in real-world clinical settings</p>
+    <div class="flex flex-wrap justify-center gap-6">
+      <div class="bg-white shadow rounded-lg p-6 w-40">
+        <p class="text-2xl font-bold text-blue-600">95.7%</p>
+        <p class="text-sm text-gray-600">Sensitivity</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-6 w-40">
+        <p class="text-2xl font-bold text-green-600">97.2%</p>
+        <p class="text-sm text-gray-600">Specificity</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-6 w-40">
+        <p class="text-2xl font-bold text-purple-600">0.94</p>
+        <p class="text-sm text-gray-600">AUC Score</p>
+      </div>
+    </div>
+    <div class="mt-10">
+      <h3 class="font-semibold mb-4">Published Research</h3>
+      <div class="text-gray-700 space-y-2">
+        <p><strong>Nature Medicine (2024):</strong> “AI-assisted COVID-19 detection in chest radiographs: A multi-center consistent study”</p>
+        <p><strong>Radiology (2024):</strong> “Deep learning for rapid COVID-19 screening: Performance across diverse populations”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Features -->
+  <div class="grid md:grid-cols-3 gap-8 mt-16">
+    <div class="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
+      <div class="text-4xl text-blue-600 mb-3">⚡</div>
+      <h4 class="font-semibold text-lg mb-2">Fast Analysis</h4>
+      <p class="text-gray-600 text-sm">Get results in seconds with our advanced AI algorithms</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
+      <div class="text-4xl text-green-600 mb-3">🎯</div>
+      <h4 class="font-semibold text-lg mb-2">High Accuracy</h4>
+      <p class="text-gray-600 text-sm">Trained on thousands of medical images for reliable results</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow">
+      <div class="text-4xl text-purple-600 mb-3">🔒</div>
+      <h4 class="font-semibold text-lg mb-2">Secure & Private</h4>
+      <p class="text-gray-600 text-sm">Your medical data is encrypted and never stored</p>
+    </div>
+  </div>
+  </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="bg-white py-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="text-center md:text-left mb-4 md:mb-0">
+          <a href="{{url_for('home')}}" class="text-xl font-bold text-blue-600">Viralytics</a>
+        </div>
+        <div class="flex space-x-4">
+          <a href="{{url_for('about')}}" class="text-gray-600 hover:text-blue-600">About</a>
+          <a href="{{url_for('contact')}}" class="text-gray-600 hover:text-blue-600">Contact</a>
+          <a href="{{url_for('about')}}" class="text-gray-600 hover:text-blue-600">Privacy Policy</a>
+          <a href="{{url_for('about')}}" class="text-gray-600 hover:text-blue-600">Terms of Service</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-200 mt-4 pt-4 text-center">
+        <p class="text-gray-500 text-sm">&copy; 2024 Viralytics. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+
+
+
