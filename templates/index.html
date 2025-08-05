@@ -28,8 +28,13 @@
         <a href="{{ url_for('contact') }}" class="text-gray-600 hover:text-blue-600">Contact</a>
       </div>
       <div class="space-x-3">
-        <a href="{{ url_for('sign_in') }}" class="text-blue-600 font-medium">Sign In</a>
-        <a href="{{ url_for('sign_up') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Sign Up</a>
+        {% if session.get('user') %}
+          <span class="text-gray-700">Welcome, {{ session['user']['name'] }}</span>
+          <a href="{{ url_for('logout') }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Logout</a>
+        {% else %}
+          <a href="{{ url_for('sign_in') }}" class="text-blue-600 font-medium">Sign In</a>
+          <a href="{{ url_for('sign_up') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Sign Up</a>
+        {% endif %}
       </div>
     </div>
   </nav>

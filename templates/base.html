@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}COVID-19 Detection App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Add any other head elements here -->
+</head>
+<body>
+    <header>
+        <h1>COVID-19 Detection App</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('predict') }}">Predict</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                {% if session.get('user') %}
+                  <span>Welcome, {{ session['user']['name'] }}</span>
+                  <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                  <a href="{{ url_for('sign_in') }}">Sign In</a>
+                  <a href="{{ url_for('sign_up') }}">Sign Up</a>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 COVID-19 Detection App. All rights reserved.</p>
+    </footer>
+    
+    <!-- Add any other scripts here -->
+</body>
+</html>

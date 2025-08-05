@@ -28,8 +28,13 @@
         <li><a href="{{ url_for('contact') }}" class="hover:text-blue-600">Contact</a></li>
       </ul>
       <div class="hidden md:flex space-x-4">
-        <button class="px-4 py-2 border rounded hover:bg-blue-50"><a href="{{ url_for('sign_in') }}">Sign In</a></button>
-        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"><a href="{{ url_for('sign_up') }}">Sign Up</a></button>
+        {% if session.get('user') %}
+          <span class="text-gray-700">Welcome, {{ session['user']['name'] }}</span>
+          <a href="{{ url_for('logout') }}" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Logout</a>
+        {% else %}
+          <button class="px-4 py-2 border rounded hover:bg-blue-50"><a href="{{ url_for('sign_in') }}">Sign In</a></button>
+          <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"><a href="{{ url_for('sign_up') }}">Sign Up</a></button>
+        {% endif %}
       </div>
       <button id="menu-btn" class="md:hidden text-gray-600">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +69,7 @@
                     d="M16.707 5.293a1 1 0 010 1.414L8 15.414 4.293 11.707a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                     clip-rule="evenodd" />
             </svg>
-            <span class="ml-3 text-gray-700">95%+ accuracy in COVID-19 detection</span>
+            <span class="ml-3 text-gray-700">75%+ accuracy in COVID-19 detection</span>
           </li>
           <li class="flex items-start">
             <svg class="h-6 w-6 text-green-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">

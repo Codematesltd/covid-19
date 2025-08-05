@@ -328,7 +328,35 @@ def contact():
 @app.route('/logout')
 def logout():
     session.pop('user', None)
-    return redirect(url_for('sign_in'))
+    return redirect(url_for('home'))
+
+@app.route('/submit_contact', methods=['POST'])
+def submit_contact():
+    try:
+        data = request.get_json()
+        name = data.get('name')
+        email = data.get('email')
+        institution = data.get('institution')
+        subject = data.get('subject')
+        message = data.get('message')
+
+        if not name or not email or not message:
+            return jsonify({'success': False, 'error': 'Name, email, and message are required.'}), 400
+
+        contact_data = {
+            "name": name,
+            "email": email,
+            "institution": institution,
+            "subject": subject,
+            "message": message
+        }
+        resp = supabase.table("contacts").insert(contact_data).execute()
+        if not resp.data:
+            return jsonify({'success': False, 'error': 'Failed to save contact.'}), 500
+
+        return jsonify({'success': True}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
